@@ -6,9 +6,9 @@ const getMenuData = ({ menuType }) => {
   const url = `${baseUrl}/list.php?${menuType}=list`;
   return new Promise((resolve, reject) => {
     fetch(url)
-    .then(res => res.json())
-    .then(data => resolve(data))
-    .catch(e => reject(e));
+      .then(res => res.json())
+      .then(data => resolve(data))
+      .catch(e => reject(e));
   });
 }
 
@@ -26,7 +26,7 @@ const renderMenu = (config) => {
     str += `</select>`;
     document.querySelector(menuElement).innerHTML = str;
   })
-  .catch(e => console.log(e));
+    .catch(e => console.log(e));
 }
 
 const resetInactiveMenus = (menuElement) => {
@@ -43,15 +43,15 @@ const getCards = (url, menuElement) => {
   elem('#content').classList.add(...multipleClasses);
   toggleSpinner();
   fetch(url)
-  .then(res => res.json())
-  .then(data => {
-    let str = '';
-    data.drinks.forEach(item => { str += renderCard(item); });
-    elem('#content').innerHTML = str;
-    resetInactiveMenus(menuElement);
-    toggleSpinner();
-  })
-  .catch(e => console.log(e));
+    .then(res => res.json())
+    .then(data => {
+      let str = '';
+      data.drinks.forEach(item => { str += renderCard(item); });
+      elem('#content').innerHTML = str;
+      resetInactiveMenus(menuElement);
+      toggleSpinner();
+    })
+    .catch(e => console.log(e));
 }
 
 const renderCard = (drink) => {
@@ -59,7 +59,7 @@ const renderCard = (drink) => {
   return `
     <div class="col card-col">
       <div class="card shadow-sm">
-        <img src="${strDrinkThumb}" class="card-image card-img-top" width="100%" height="225" />
+        <img src="${strDrinkThumb}" class="card-image card-img-top" width="100%" height="225" alt="${strDrink}" />
         <div class="card-body">
           <p class="card-text"><h4>${strDrink}</h4></p>
           <div class="d-flex justify-content-between align-items-center">
@@ -77,18 +77,18 @@ const renderCard = (drink) => {
 const renderModalDetails = (id) => {
   toggleSpinner();
   fetch(`${baseUrl}/lookup.php?i=${id}`)
-  .then(res => res.json())
-  .then(data => {
-    const { strDrink, strCategory, strDrinkThumb, strInstructions, strGlass, strVideo, dateModified } = data.drinks[0];
-    elem('.modal-title').textContent = strDrink;
-    const date = new Date(dateModified).toLocaleDateString('en-GB');
-    const delimiter = '<br>\t\t&bull;&nbsp;';
-    const ingredients = Object.entries(data.drinks[0]).reduce((acc, [key, value]) => {
-      if (key.includes('strIngredient') && value) acc.push(value);
-      return acc;
-    }, []).join(delimiter);
-    const videoLink = strVideo ? `<p><strong>Video</strong>: <a href="${strVideo}">Watch on YouTube</a></p>` : '';
-    elem('.modal-body').innerHTML = `
+    .then(res => res.json())
+    .then(data => {
+      const { strDrink, strCategory, strDrinkThumb, strInstructions, strGlass, strVideo, dateModified } = data.drinks[0];
+      elem('.modal-title').textContent = strDrink;
+      const date = new Date(dateModified).toLocaleDateString('en-GB');
+      const delimiter = '<br>\t\t&bull;&nbsp;';
+      const ingredients = Object.entries(data.drinks[0]).reduce((acc, [key, value]) => {
+        if (key.includes('strIngredient') && value) acc.push(value);
+        return acc;
+      }, []).join(delimiter);
+      const videoLink = strVideo ? `<p><strong>Video</strong>: <a href="${strVideo}">Watch on YouTube</a></p>` : '';
+      elem('.modal-body').innerHTML = `
       <div>
         <p><img src="${strDrinkThumb}" width="120" /></p>
         <p><strong>Category</strong>: ${strCategory}</p>
@@ -99,23 +99,23 @@ const renderModalDetails = (id) => {
         ${videoLink}
       </div>
     `;
-    toggleSpinner();
-    currentModal.show();
-  })
-  .catch(e => console.log(e));
+      toggleSpinner();
+      currentModal.show();
+    })
+    .catch(e => console.log(e));
 }
 
 const getRandomCocktail = () => {
   toggleSpinner();
   fetch(`${baseUrl}/random.php`)
-  .then(res => res.json())
-  .then(data => {
-    elem('#content').classList.remove(...content.classList)
-    elem('#content').classList.add('row');
-    elem('#content').innerHTML = renderCard(data.drinks[0]);
-    toggleSpinner();
-  })
-  .catch(e => console.log(e));
+    .then(res => res.json())
+    .then(data => {
+      elem('#content').classList.remove(...content.classList)
+      elem('#content').classList.add('row');
+      elem('#content').innerHTML = renderCard(data.drinks[0]);
+      toggleSpinner();
+    })
+    .catch(e => console.log(e));
 }
 
 const toggleSpinner = () => {
@@ -130,15 +130,15 @@ const compareFunction = (a, b, key) => {
 
 const menuConfigs = [
   {
-    menuType: 'c', 
-    defaultLabel: 'Select a category', 
-    key: 'strCategory', 
+    menuType: 'c',
+    defaultLabel: 'Select a category',
+    key: 'strCategory',
     menuElement: '#categories-menu'
   },
   {
-    menuType: 'i', 
-    defaultLabel: 'Select an ingredient', 
-    key: 'strIngredient1', 
+    menuType: 'i',
+    defaultLabel: 'Select an ingredient',
+    key: 'strIngredient1',
     menuElement: '#ingredients-menu'
   }
 ];
