@@ -146,4 +146,5 @@ const menuConfigs = [
 window.addEventListener('DOMContentLoaded', (event) => {
   menuConfigs.forEach(config => renderMenu(config));
   getRandomCocktail();
+  elem('.currentYear').textContent = new Date().getFullYear()
 });

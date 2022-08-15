@@ -93,6 +93,17 @@ html, body {
   border-width: 8px !important;
 }
 
+.bi-cup-straw {
+  font-size: 2rem;
+}
+
+.new-tab-icon::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f35d";
+  margin-left: 5px;
+}
+
 .modal-header {
   background: #f2f2f2;
 }
