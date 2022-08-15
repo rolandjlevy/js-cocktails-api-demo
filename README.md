@@ -1,4 +1,4 @@
-# Cocktails API: thecocktaildb.com
+# Cocktails API
 
 > The [CocktailDb API](https://www.thecocktaildb.com/api.php) is an open crowd-sourced database of drinks and cocktails from around the world which offers free access at its basic level
 
