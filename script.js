@@ -8,31 +8,34 @@ const getMenuData = ({ menuType }) => {
     fetch(url)
       .then(res => res.json())
       .then(data => resolve(data))
-      .catch(e => reject(e));
+      .catch(err => reject(err));
   });
 }
 
 const renderMenu = (config) => {
-  const { menuType, defaultLabel, key, menuElement } = config;
-  console.log(menuElement)
-  getMenuData({ menuType }).then(data => {
-    let str = `<select onchange="getCards(this.value, '${menuElement}')" class="form-select form-select-md">\n`;
-    str += `<option value="">» ${defaultLabel} «</option>\n`;
-    data.drinks.sort((a, b) => compareFunction(a, b, key));
-    data.drinks.forEach(item => {
-      const name = item[key].replace(/\s/g, '_')
-      str += `<option value="${`${baseUrl}/filter.php?${menuType}=${name}`}">${item[key]}</option>\n`;
+  const { menuType, name, defaultLabel, key, menuElement } = config;
+  getMenuData({ menuType })
+    .then(data => {
+      let str = `<select onchange="getCards(this.value, '${menuElement}')" class="form-select form-select-md">\n`;
+      str += `<option value="">» ${defaultLabel} «</option>\n`;
+      data.drinks.sort((a, b) => compareFunction(a, b, key));
+      data.drinks.forEach(item => {
+        const name = item[key].replace(/\s/g, '_');
+        str += `<option value="${`${baseUrl}/filter.php?${menuType}=${name}`}">${item[key]}</option>\n`;
+      });
+      str += `</select>`;
+      elem(menuElement).innerHTML = str;
+    })
+    .catch((err) => {
+      const errorMessage = `<p>Unable to load the ${name} menu, error: ${err}</p>`;
+      elem(menuElement).innerHTML = errorMessage;
     });
-    str += `</select>`;
-    document.querySelector(menuElement).innerHTML = str;
-  })
-    .catch(e => console.log(e));
 }
 
 const resetInactiveMenus = (menuElement) => {
   menuConfigs.forEach(config => {
     if (config.menuElement !== menuElement) {
-      document.querySelector(`${config.menuElement} > select`).selectedIndex = 0;
+      elem(`${config.menuElement} > select`).selectedIndex = 0;
     }
   });
 }
@@ -51,7 +54,10 @@ const getCards = (url, menuElement) => {
       resetInactiveMenus(menuElement);
       toggleSpinner();
     })
-    .catch(e => console.log(e));
+    .catch((err) => {
+      const errorMessage = `<p>Unable to load data, error: ${err}</p>`;
+      elem('#content').innerHTML = errorMessage;
+    });
 }
 
 const renderCard = (drink) => {
@@ -102,7 +108,10 @@ const renderModalDetails = (id) => {
       toggleSpinner();
       currentModal.show();
     })
-    .catch(e => console.log(e));
+    .catch((err) => {
+      const errorMessage = `<p>Unable to load details, error: ${err}</p>`;
+      elem('.modal-body').innerHTML = errorMessage;
+    });
 }
 
 const getRandomCocktail = () => {
@@ -115,7 +124,10 @@ const getRandomCocktail = () => {
       elem('#content').innerHTML = renderCard(data.drinks[0]);
       toggleSpinner();
     })
-    .catch(e => console.log(e));
+    .catch((err) => {
+      const errorMessage = `<p>Unable to load data, error: ${err}</p>`;
+      elem('#content').innerHTML = errorMessage;
+    });
 }
 
 const toggleSpinner = () => {
@@ -130,12 +142,14 @@ const compareFunction = (a, b, key) => {
 
 const menuConfigs = [
   {
+    name: 'categories',
     menuType: 'c',
     defaultLabel: 'Select a category',
     key: 'strCategory',
     menuElement: '#categories-menu'
   },
   {
+    name: 'ingredients',
     menuType: 'i',
     defaultLabel: 'Select an ingredient',
     key: 'strIngredient1',
