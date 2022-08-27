@@ -1,3 +1,6 @@
+// import { Card } from './src/Card.js';
+// import { Menu } from './src/Menu.js';
+
 const baseUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
 const elem = (selector) => document.querySelector(selector);
 const currentModal = new bootstrap.Modal(elem('#currentModal'));
@@ -20,8 +23,8 @@ const renderMenu = (config) => {
       str += `<option value="">» ${defaultLabel} «</option>\n`;
       data.drinks.sort((a, b) => compareFunction(a, b, key));
       data.drinks.forEach(item => {
-        const name = item[key].replace(/\s/g, '_');
-        str += `<option value="${`${baseUrl}/filter.php?${menuType}=${name}`}">${item[key]}</option>\n`;
+        const currentName = item[key].replace(/\s/g, '_');
+        str += `<option value="${`${baseUrl}/filter.php?${menuType}=${currentName}`}">${item[key]}</option>\n`;
       });
       str += `</select>`;
       elem(menuElement).innerHTML = str;
@@ -96,7 +99,7 @@ const renderModalDetails = (id) => {
       const videoLink = strVideo ? `<p><strong>Video</strong>: <a href="${strVideo}">Watch on YouTube</a></p>` : '';
       elem('.modal-body').innerHTML = `
       <div>
-        <p><img src="${strDrinkThumb}" width="120" /></p>
+        <p><img src="${strDrinkThumb}" class="modal-image" /></p>
         <p><strong>Category</strong>: ${strCategory}</p>
         <p><strong>Glass type</strong>: ${strGlass || 'N/A'}</p>
         <p><strong>Instructions</strong>: ${strInstructions || 'N/A'}</p>
@@ -157,8 +160,37 @@ const menuConfigs = [
   }
 ];
 
+const initMenus = () => {
+  
+  const categoriesConfig = {
+    name: 'categories',
+    menuType: 'c',
+    defaultLabel: 'Select a category',
+    key: 'strCategory',
+    menuElement: '#categories-menu',
+    baseUrl,
+    elem
+  };
+  const categoriesMenu = new Menu(categoriesConfig);
+  categoriesMenu.renderMenu();
+
+  const ingredientsConfig = {
+    name: 'ingredients',
+    menuType: 'i',
+    defaultLabel: 'Select an ingredient',
+    key: 'strIngredient1',
+    menuElement: '#ingredients-menu',
+    baseUrl,
+    elem
+  }
+  const ingredientsMenu = new Menu(ingredientsConfig);
+  ingredientsMenu.renderMenu();
+  
+}
+
 window.addEventListener('DOMContentLoaded', (event) => {
   menuConfigs.forEach(config => renderMenu(config));
   getRandomCocktail();
-  elem('.currentYear').textContent = new Date().getFullYear()
+  elem('.currentYear').textContent = new Date().getFullYear();
+  // initMenus();
 });
