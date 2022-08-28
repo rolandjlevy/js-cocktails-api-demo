@@ -4,9 +4,10 @@ html, body {
   scroll-behavior: smooth;
 }
 
-/* main {
-  margin-top: 60px;
-} */
+h1.fw-light {
+  font-weight: 500 !important;
+  font-family: 'Comfortaa', cursive;
+}
 
 #content {
   min-height: 500px;
