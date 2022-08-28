@@ -63,9 +63,10 @@ html, body {
   margin: 20px auto 0 auto;
 }
 
-/* #navbarHeader .contact-details {
-  margin-top: 36px;
-} */
+#navbarHeader ul.contact-details {
+  list-style-type: disc;
+  color: #ccc;
+}
 
 #navbarHeader .text-muted {
   color: #999 !important;
