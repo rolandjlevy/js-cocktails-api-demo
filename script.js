@@ -1,32 +1,17 @@
-import { Cards } from './src/Cards.js';
-import { Menu } from './src/Menu.js';
-import { Modal } from './src/Modal.js';
+import { Config, Card, Cards, CardModal, Menu } from "./src/index.js";
 
 const elem = (selector) => document.querySelector(selector);
+const elemAll = (selector) => document.querySelectorAll(selector);
 const baseUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
 const currentModal = new bootstrap.Modal(elem('#currentModal'));
 
-window.getRandomCocktail = () => cards.getRandomCocktail();
-
-window.renderModalDetails = (id) => modal.renderDetails(id);
-
-window.resetInactiveMenus = (menuElement) => {
-  menus.forEach(menu => {
-    if (menu.menuElement !== menuElement) {
-      elem(`${menu.menuElement} > select`).selectedIndex = 0;
-    }
-  });
-}
-
-window.toggleSpinner = () => {
+const toggleSpinner = () => {
   ['d-none', 'd-flex'].map(cls => elem('.spinner').classList.toggle(cls));
 }
 
-const cards = new Cards({ elem, baseUrl, toggleSpinner });
-const modal = new Modal({ elem, baseUrl, currentModal, toggleSpinner });
 const menus = [];
 
-window.addEventListener('DOMContentLoaded', (event) => {
+const initMenus = () => {
   const categoriesConfig = {
     name: 'categories',
     menuType: 'c',
@@ -38,7 +23,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
   };
   const categoriesMenu = new Menu(categoriesConfig);
   menus.push(categoriesMenu);
-
   const ingredientsConfig = {
     name: 'ingredients',
     menuType: 'i',
@@ -57,6 +41,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
       cards.getCards(url, menu.menuElement);
     });
   });
-  getRandomCocktail();
+}
+
+const config = new Config({ elem, elemAll, baseUrl, menus, currentModal, toggleSpinner });
+const cards = new Cards(config);
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  initMenus();
+  cards.getRandomCocktail();
+  elem('#random-button').addEventListener('click', (e) => cards.getRandomCocktail());
   elem('.currentYear').textContent = new Date().getFullYear();
 });

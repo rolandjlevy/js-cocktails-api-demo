@@ -1,12 +1,11 @@
-export class Modal {
-  constructor({ elem, baseUrl, currentModal, toggleSpinner }) {
-    this.elem = elem;
-    this.baseUrl = baseUrl;
-    this.currentModal = currentModal;
-    this.toggleSpinner = toggleSpinner;
+import { Config } from "./index.js";
+
+export class CardModal extends Config {
+  constructor(config) {
+    super(config);
   }
-  renderDetails(id) {
-  this.toggleSpinner();
+  renderModal(id) {
+    this.toggleSpinner();
     fetch(`${this.baseUrl}/lookup.php?i=${id}`)
       .then(res => res.json())
       .then(data => {
@@ -30,12 +29,13 @@ export class Modal {
           ${videoLink}
         </div>
       `;
-        this.toggleSpinner();
         this.currentModal.show();
+        this.toggleSpinner();
       })
       .catch((err) => {
         const errorMessage = `<p>Unable to load details, error: ${err}</p>`;
         this.elem('.modal-body').innerHTML = errorMessage;
+        this.toggleSpinner();
       });
   }
 }

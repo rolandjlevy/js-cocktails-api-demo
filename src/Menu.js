@@ -4,6 +4,11 @@ export class Menu {
       this[key] = value
     });
   }
+  compareFunction(a, b, key) {
+    if (a[key] < b[key]) return -1;
+    if (a[key] > b[key]) return 1;
+    return 0;
+  }
   getMenuData() {
     const url = `${this.baseUrl}/list.php?${this.menuType}=list`;
     return new Promise((resolve, reject) => {
@@ -12,11 +17,6 @@ export class Menu {
         .then(data => resolve(data))
         .catch(err => reject(err));
     });
-  }
-  compareFunction(a, b, key) {
-    if (a[key] < b[key]) return -1;
-    if (a[key] > b[key]) return 1;
-    return 0;
   }
   renderMenu() {
     this.getMenuData()

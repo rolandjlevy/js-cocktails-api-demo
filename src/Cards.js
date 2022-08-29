@@ -1,8 +1,10 @@
-export class Cards {
-  constructor({ elem, baseUrl, currentModal, toggleSpinner }) {
-    this.elem = elem;
-    this.baseUrl = baseUrl;
-    this.toggleSpinner = toggleSpinner;
+import { Config } from "./index.js";
+import { Card } from "./index.js";
+import { CardModal } from "./index.js";
+
+export class Cards extends Config {
+  constructor(config) {
+    super(config);
   }
   getCards(url, menuElement) {
     if (!url.length) return;
@@ -13,34 +15,26 @@ export class Cards {
       .then(res => res.json())
       .then(data => {
         let str = '';
-        data.drinks.forEach(item => { str += this.renderCard(item); });
+        data.drinks.forEach(item => {
+          const card = new Card(item);
+          str += card.renderCard();
+        });
         this.elem('#content').innerHTML = str;
+        this.elemAll('button.view-details').forEach(item => {
+          item.addEventListener('click', (e) => {
+            const modal = new CardModal(this.config);
+            const { drinkId } = e.target.dataset;
+            modal.renderModal(drinkId);
+          });
+        });
+        this.resetInactiveMenus(menuElement);
         this.toggleSpinner();
-        resetInactiveMenus(menuElement);
       })
       .catch((err) => {
         const errorMessage = `<p>Unable to load data, error: ${err}</p>`;
         this.elem('#content').innerHTML = errorMessage;
+        this.toggleSpinner();
       });
-  }
-  renderCard(drink) {
-    const { strDrink, strDrinkThumb, idDrink } = drink;
-    return `
-      <div class="col card-col">
-        <div class="card shadow-sm">
-          <img src="${strDrinkThumb}" class="card-image card-img-top" width="100%" height="225" alt="${strDrink}" />
-          <div class="card-body">
-            <p class="card-text"><h4>${strDrink}</h4></p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" onclick=renderModalDetails(${idDrink}) class="btn btn-sm btn-outline-secondary">View details</button>
-              </div>
-              <small class="text-muted">Date</small>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
   }
   getRandomCocktail() {
     this.toggleSpinner();
@@ -49,12 +43,33 @@ export class Cards {
       .then(data => {
         this.elem('#content').classList.remove(...content.classList)
         this.elem('#content').classList.add('row');
-        this.elem('#content').innerHTML = this.renderCard(data.drinks[0]);
+        const card = new Card(data.drinks[0]);
+        this.elem('#content').innerHTML = card.renderCard();
+        this.elem('button.view-details').addEventListener('click', (e) => {
+          const modal = new CardModal(this.config);
+          const { drinkId } = e.target.dataset;
+          modal.renderModal(drinkId);
+        });
+        this.resetAllMenus();
         this.toggleSpinner();
       })
       .catch((err) => {
         const errorMessage = `<p>Unable to load data, error: ${err}</p>`;
         this.elem('#content').innerHTML = errorMessage;
+        this.toggleSpinner();
       });
     }
+  resetInactiveMenus(menuElement) {
+    this.menus.forEach(menu => {
+      if (menu.menuElement !== menuElement) {
+        this.elem(`${menu.menuElement} > select`).selectedIndex = 0;
+      }
+    });
+  }
+  resetAllMenus() {
+    this.menus.forEach(menu => {
+      this.elem(`${menu.menuElement} > select`).selectedIndex = 0;
+    });
+  }
 }
+

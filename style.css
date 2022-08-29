@@ -57,6 +57,12 @@ h1.fw-light {
   .fade {
     transition: opacity .15s linear !important;
   }
+  .btn {
+	  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+  }
+  .collapsing {
+  	transition: height 0.35s ease !important;
+  }
 }
 
 .row > .card-col {
@@ -67,6 +73,7 @@ h1.fw-light {
 #navbarHeader ul.contact-details {
   list-style-type: disc;
   color: #ccc;
+  margin-bottom: 0;
 }
 
 #navbarHeader .text-muted {
