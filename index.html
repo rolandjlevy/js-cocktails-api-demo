@@ -58,8 +58,8 @@
           <h1 class="fw-light">Cocktail Finder <i class="bi bi-cup-straw mb-1"></i></h1>
           <p class="lead text-muted">This project is built with vanilla JavaScript and Bootstrap and showcases the <a href="https://www.thecocktaildb.com/api.php" target="_blank">CocktailDb API</a>, an open crowd-sourced database of drinks and cocktails from around the world.</p>
           <div class="form-group">
-            <p id="categories-menu" class="my-2"></p>
-            <p id="ingredients-menu" class="my-2 ms-2"></p>
+            <p id="categories-menu" class="my-2"><select class="form-select form-select-md" disabled><option>» Loading menu... «</option></select></p>
+            <p id="ingredients-menu" class="my-2 ms-2"><select class="form-select form-select-md" disabled><option>» Loading menu... «</option></select></p>
             <a href="javascript:void(0)" onclick="getRandomCocktail()" class="btn btn-outline-secondary my-2 ms-2">Random cocktail</a>
           </div>
         </div>
@@ -69,7 +69,6 @@
     <!-- Main content -->
     <div class="album py-4 bg-light">
       <div class="container">
-
         <div id="content" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"></div>
       </div>
     </div>
