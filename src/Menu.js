@@ -21,7 +21,7 @@ export class Menu {
   renderMenu() {
     this.getMenuData()
       .then(data => {
-        let str = `<select onchange="${this.onchangeAction}(this.value, '${this.menuElement}')" class="form-select form-select-md">\n`;
+        let str = `<select class="form-select form-select-md">\n`;
         str += `<option value="">» ${this.defaultLabel} «</option>\n`;
         data.drinks.sort((a, b) => this.compareFunction(a, b, this.key));
         data.drinks.forEach(item => {

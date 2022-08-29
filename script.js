@@ -6,8 +6,6 @@ const elem = (selector) => document.querySelector(selector);
 const baseUrl = 'https://www.thecocktaildb.com/api/json/v1/1';
 const currentModal = new bootstrap.Modal(elem('#currentModal'));
 
-window.getCards = (url, menuElem) => cards.getCards(url, menuElem);
-
 window.getRandomCocktail = () => cards.getRandomCocktail();
 
 window.renderModalDetails = (id) => modal.renderDetails(id);
@@ -22,7 +20,6 @@ window.resetInactiveMenus = (menuElement) => {
 
 window.toggleSpinner = () => {
   ['d-none', 'd-flex'].map(cls => elem('.spinner').classList.toggle(cls));
-  console.log('toggleSpinner called');
 }
 
 const cards = new Cards({ elem, baseUrl, toggleSpinner });
@@ -36,7 +33,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     defaultLabel: 'Select a category',
     key: 'strCategory',
     menuElement: '#categories-menu',
-    onchangeAction: 'getCards',
     baseUrl,
     elem
   };
@@ -49,13 +45,18 @@ window.addEventListener('DOMContentLoaded', (event) => {
     defaultLabel: 'Select an ingredient',
     key: 'strIngredient1',
     menuElement: '#ingredients-menu',
-    onchangeAction: 'getCards',
     baseUrl,
     elem
   }
   const ingredientsMenu = new Menu(ingredientsConfig);
   menus.push(ingredientsMenu);
-  menus.forEach(menu => menu.renderMenu());
+  menus.forEach(menu => {
+    menu.renderMenu();
+    elem(menu.menuElement).addEventListener('change', (e) => {
+      const url = e.target.value;
+      cards.getCards(url, menu.menuElement);
+    });
+  });
   getRandomCocktail();
   elem('.currentYear').textContent = new Date().getFullYear();
 });
