@@ -1,8 +1,10 @@
 import { Config } from "./index.js";
 
 export class CardModal extends Config {
-  constructor(config) {
+  constructor(config, currentModal, toggleSpinner) {
     super(config);
+    this.currentModal = currentModal;
+    this.toggleSpinner = toggleSpinner;
   }
   renderModal(id) {
     this.toggleSpinner();

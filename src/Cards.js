@@ -3,8 +3,11 @@ import { Card } from "./index.js";
 import { CardModal } from "./index.js";
 
 export class Cards extends Config {
-  constructor(config) {
+  constructor(config, menus, currentModal, toggleSpinner) {
     super(config);
+    this.menus = menus;
+    this.currentModal = currentModal;
+    this.toggleSpinner = toggleSpinner;
   }
   getCards(url, menuElement) {
     if (!url.length) return;
@@ -22,7 +25,7 @@ export class Cards extends Config {
         this.elem('#content').innerHTML = str;
         this.elemAll('button.view-details').forEach(item => {
           item.addEventListener('click', (e) => {
-            const modal = new CardModal(this.config);
+            const modal = new CardModal(this.config, this.currentModal, this.toggleSpinner);
             const { drinkId } = e.target.dataset;
             modal.renderModal(drinkId);
           });
@@ -37,6 +40,7 @@ export class Cards extends Config {
       });
   }
   getRandomCocktail() {
+    console.log('getRandomCocktail')
     this.toggleSpinner();
     fetch(`${this.baseUrl}/random.php`)
       .then(res => res.json())
@@ -46,7 +50,7 @@ export class Cards extends Config {
         const card = new Card(data.drinks[0]);
         this.elem('#content').innerHTML = card.renderCard();
         this.elem('button.view-details').addEventListener('click', (e) => {
-          const modal = new CardModal(this.config);
+          const modal = new CardModal(this.config, this.currentModal, this.toggleSpinner);
           const { drinkId } = e.target.dataset;
           modal.renderModal(drinkId);
         });

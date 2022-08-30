@@ -1,6 +1,9 @@
-export class Menu {
-  constructor(config) {
-    Object.entries(config).forEach(([key, value]) => {
+import { Config } from "./index.js";
+
+export class Menu extends Config {
+  constructor(config, menuConfig) {
+    super(config);
+    Object.entries(menuConfig).forEach(([key, value]) => {
       this[key] = value
     });
   }
