@@ -16,7 +16,7 @@ export class Card {
               <div class="btn-group">
                 <button type="button" data-drink-id="${this.idDrink}" class="view-details btn btn-sm btn-outline-secondary">View details</button>
               </div>
-              <small class="text-muted">Date</small>
+              <small class="text-muted">&nbsp;</small>
             </div>
           </div>
         </div>
