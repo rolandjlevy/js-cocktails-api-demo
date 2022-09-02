@@ -13,3 +13,5 @@
 - [Live demo](https://js-cocktailsdb-api.rolandjlevy.repl.co/)
 - [Source code](https://replit.com/@RolandJLevy/js-cocktailsdb-api)
 - [Github repo](https://github.com/rolandjlevy/js-cocktailsdb-api)
+
+![Cocktail Finder](https://js-cocktailsdb-api.rolandjlevy.repl.co/src/images/cocktail-finder.png "Cocktail Finder")
