@@ -40,7 +40,6 @@ export class Cards extends Config {
       });
   }
   getRandomCocktail() {
-    console.log('getRandomCocktail')
     this.toggleSpinner();
     fetch(`${this.baseUrl}/random.php`)
       .then(res => res.json())
