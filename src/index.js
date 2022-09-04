@@ -4,7 +4,7 @@ import {
   Cards, 
   CardModal, 
   Menu
-} from "./scripts/index.js";
+} from "./classes/index.js";
 
 const elem = (selector) => document.querySelector(selector);
 const elemAll = (selector) => document.querySelectorAll(selector);
