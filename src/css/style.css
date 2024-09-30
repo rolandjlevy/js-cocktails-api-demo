@@ -1,5 +1,5 @@
 :root {
-/*   --default-black: #212529; */
+  /*   --default-black: #212529; */
   --default-black: #261526;
   --purple-deep: #3e1738;
   --purple-mid: #742c69;
@@ -7,7 +7,8 @@
   --beige-light: #fbf9f6;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   scroll-behavior: smooth;
@@ -21,14 +22,30 @@ header > .bg-dark {
   background-color: var(--beige-light) !important;
 }
 
-h1, h1.fw-light, h2, h3, h4, h5 {
+h1,
+h1.fw-light,
+h2,
+h3,
+h4,
+h5 {
   font-weight: 500 !important;
   font-family: 'Comfortaa', cursive;
   color: var(--purple-deep) !important;
 }
 
-a.main-link, a.main-link:active, a.main-link:visited {
+a.main-link,
+a.main-link:active,
+a.main-link:visited,
+a.main-link:hover {
   color: var(--purple-mid);
+}
+
+a.main-link {
+  text-decoration: none;
+}
+
+a.main-link:hover {
+  text-decoration: underline;
 }
 
 #content {
@@ -72,7 +89,7 @@ a.main-link, a.main-link:active, a.main-link:visited {
 }
 
 .fade {
-  transition: opacity .15s linear !important;
+  transition: opacity 0.15s linear !important;
 }
 
 .btn {
@@ -86,21 +103,22 @@ a.main-link, a.main-link:active, a.main-link:visited {
 }
 
 .btn.btn-outline-secondary {
-	color: var(--default-black) !important;
+  color: var(--default-black) !important;
 }
 
 .btn.btn-outline-secondary:hover {
-	color: #fff !important;
+  color: #fff !important;
   background-color: var(--purple-mid) !important;
 }
 
-.btn.btn-outline-secondary:active, .btn.btn-outline-secondary:focus {
-	color: #fff !important;
+.btn.btn-outline-secondary:active,
+.btn.btn-outline-secondary:focus {
+  color: #fff !important;
   background-color: var(--purple-light) !important;
 }
 
 .btn.btn-secondary {
-	color: #fff !important;
+  color: #fff !important;
   background-color: var(--purple-light) !important;
 }
 
@@ -108,19 +126,21 @@ a.main-link, a.main-link:active, a.main-link:visited {
   background-color: var(--purple-mid) !important;
 }
 
-.btn.btn-secondary:active, .btn.btn-secondary:focus {
+.btn.btn-secondary:active,
+.btn.btn-secondary:focus {
   background-color: var(--purple-mid) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .fade {
-    transition: opacity .15s linear !important;
+    transition: opacity 0.15s linear !important;
   }
   .btn {
-	  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
   }
   .collapsing {
-  	transition: height 0.35s ease !important;
+    transition: height 0.35s ease !important;
   }
 }
 
@@ -139,7 +159,7 @@ a.main-link, a.main-link:active, a.main-link:visited {
   color: rgba(255, 255, 255, 0.75) !important;
 }
 
-#navbarHeader .text-muted > a, 
+#navbarHeader .text-muted > a,
 #navbarHeader .contact-details > li > a {
   color: rgba(255, 255, 255, 100) !important;
   font-weight: 600;
