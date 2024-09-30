@@ -9,6 +9,8 @@
 
 3. [Boostrap](https://getbootstrap.com/) was used for the various UI elements such as the navigation, menus, buttons and modals. It's a free, open source CSS Framework for developing responsive websites.
 
+4. To run locally in CodeSpaces
+
 ### Links 🔗 
 - [Live demo](https://js-cocktailsdb-api.rolandjlevy.repl.co/)
 - [Source code](https://replit.com/@RolandJLevy/js-cocktailsdb-api)
