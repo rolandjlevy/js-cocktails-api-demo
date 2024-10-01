@@ -144,9 +144,13 @@ a.main-link:hover {
   }
 }
 
+.row {
+  justify-content: center;
+}
+
 .row > .card-col {
   max-width: 500px;
-  margin: 20px auto 0 auto;
+  margin-top: 20px;
 }
 
 #navbarHeader ul.contact-details {

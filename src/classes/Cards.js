@@ -1,6 +1,6 @@
-import { Config } from "./index.js";
-import { Card } from "./index.js";
-import { CardModal } from "./index.js";
+import { Config } from './index.js';
+import { Card } from './index.js';
+import { CardModal } from './index.js';
 
 export class Cards extends Config {
   constructor(config, menus, currentModal, toggleSpinner) {
@@ -11,21 +11,26 @@ export class Cards extends Config {
   }
   getCards(url, menuElement) {
     if (!url.length) return;
-    const multipleClasses = 'row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3'.split(' ');
+    const multipleClasses =
+      'row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3'.split(' ');
     this.elem('#content').classList.add(...multipleClasses);
     this.toggleSpinner();
     fetch(url)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         let str = '';
-        data.drinks.forEach(item => {
+        data.drinks.forEach((item) => {
           const card = new Card(item);
           str += card.renderCard();
         });
         this.elem('#content').innerHTML = str;
-        this.elemAll('button.view-details').forEach(item => {
+        this.elemAll('button.view-details').forEach((item) => {
           item.addEventListener('click', (e) => {
-            const modal = new CardModal(this.config, this.currentModal, this.toggleSpinner);
+            const modal = new CardModal(
+              this.config,
+              this.currentModal,
+              this.toggleSpinner
+            );
             const { drinkId } = e.target.dataset;
             modal.renderModal(drinkId);
           });
@@ -42,14 +47,18 @@ export class Cards extends Config {
   getRandomCocktail() {
     this.toggleSpinner();
     fetch(`${this.baseUrl}/random.php`)
-      .then(res => res.json())
-      .then(data => {
-        this.elem('#content').classList.remove(...content.classList)
+      .then((res) => res.json())
+      .then((data) => {
+        this.elem('#content').classList.remove(...content.classList);
         this.elem('#content').classList.add('row');
         const card = new Card(data.drinks[0]);
         this.elem('#content').innerHTML = card.renderCard();
         this.elem('button.view-details').addEventListener('click', (e) => {
-          const modal = new CardModal(this.config, this.currentModal, this.toggleSpinner);
+          const modal = new CardModal(
+            this.config,
+            this.currentModal,
+            this.toggleSpinner
+          );
           const { drinkId } = e.target.dataset;
           modal.renderModal(drinkId);
         });
@@ -61,18 +70,17 @@ export class Cards extends Config {
         this.elem('#content').innerHTML = errorMessage;
         this.toggleSpinner();
       });
-    }
+  }
   resetInactiveMenus(menuElement) {
-    this.menus.forEach(menu => {
+    this.menus.forEach((menu) => {
       if (menu.menuElement !== menuElement) {
         this.elem(`${menu.menuElement} > select`).selectedIndex = 0;
       }
     });
   }
   resetAllMenus() {
-    this.menus.forEach(menu => {
+    this.menus.forEach((menu) => {
       this.elem(`${menu.menuElement} > select`).selectedIndex = 0;
     });
   }
 }
-
