@@ -12,7 +12,8 @@
 
 4. How to run this front-end app in CodeSpaces
 
-- Install http-server: `npm i -g http-server` and run with: `http-server -c-1`
+- Run http-server: `npm i -g http-server`, then run: `http-server -c-1`
+- Run nodemon with http-server: `npm i -g http-server`, `npm i nodemon -g` then: `nodemon --exec http-server` or `which http-server`
 - click 'Open in Browser' or from the Terminal, click the link Forwarded Address link from PORTS
 
 ### Links 🔗
