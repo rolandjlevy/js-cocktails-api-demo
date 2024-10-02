@@ -10,7 +10,7 @@
 
 3. [Boostrap](https://getbootstrap.com/) was used for the various UI elements such as the navigation, menus, buttons and modals. It's a free, open source CSS Framework for developing responsive websites.
 
-4. How to run this front-end app in CodeSpaces
+4. How to run this app in Github CodeSpaces
 
 - Run http-server: `npm i -g http-server`, then run: `http-server -c-1`
 - Run nodemon with http-server: `npm i -g http-server`, `npm i nodemon -g` then: `nodemon --exec http-server` or `which http-server`
@@ -18,8 +18,7 @@
 
 ### Links 🔗
 
-- [Live demo](https://js-cocktailsdb-api.rolandjlevy.repl.co/)
-- [Source code](https://replit.com/@RolandJLevy/js-cocktailsdb-api)
-- [Github repo](https://github.com/rolandjlevy/js-cocktailsdb-api)
+- [Live demo](https://js-cocktailsdb-api.vercel.app/)
+- [Source code](https://github.com/rolandjlevy/js-cocktailsdb-api)
 
-![Cocktail Finder](https://js-cocktailsdb-api.rolandjlevy.repl.co/src/images/cocktail-finder.png 'Cocktail Finder')
+![Cocktail Finder](src/images/cocktail-finder.png 'Cocktail Finder')

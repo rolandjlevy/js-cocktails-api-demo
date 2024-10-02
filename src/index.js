@@ -52,4 +52,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
     cards.getRandomCocktail()
   );
   elem('.currentYear').textContent = new Date().getFullYear();
+  (async () => {
+    const res = await fetch(
+      'https://node-express-api-mongodb.vercel.app/api/sliders?page=5'
+    );
+    const data = await res.json();
+    console.log('data from silders scores:', data);
+  })();
 });
