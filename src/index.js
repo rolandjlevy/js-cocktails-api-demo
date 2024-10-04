@@ -53,10 +53,18 @@ window.addEventListener('DOMContentLoaded', (event) => {
   );
   elem('.currentYear').textContent = new Date().getFullYear();
   (async () => {
-    const res = await fetch(
-      'https://node-api-serverless.vercel.app/api/cocktails'
-    );
-    const data = await res.json();
-    console.log('data from silders scores:', data);
+    try {
+      const res = await fetch(
+        'https://node-api-serverless.vercel.app/api/cocktails',
+        { mode: 'cors' }
+      );
+      if (!res.ok) {
+        throw new Error('Failed to fetch');
+      }
+      const data = await res.json();
+      console.log('Data from cocktails:', data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   })();
 });
