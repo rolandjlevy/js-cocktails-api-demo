@@ -52,4 +52,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
     cards.getRandomCocktail()
   );
   elem('.currentYear').textContent = new Date().getFullYear();
+  (async () => {
+    const res = await fetch(
+      'https://node-api-serverless.vercel.app/api/sliders?page=1&orderBy=score&sortBy=desc&limit=10'
+    );
+    const data = await res.json();
+    console.log('data from silders scores:', data);
+  })();
 });
